@@ -7,13 +7,13 @@ const { Text } = Typography;
 
 export default function MainLayout({ children }: PropsWithChildren) {
     return (
-        <Layout className="h-screen">
+        <Layout className="min-h-screen">
             <Header className="flex items-center">
-                <Text className="text-white text-2xl">Numerology</Text>
+                <Text className="text-white text-2xl">VnNumer</Text>
                 <Navbar />
             </Header>
-            <Content>
-                <Layout className="container bg-white mx-auto h-full p-8">
+            <Content className="flex flex-col">
+                <Layout className="container bg-white mx-auto p-8 my-auto">
                     {children}
                 </Layout>
             </Content>
