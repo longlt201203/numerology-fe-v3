@@ -1,5 +1,7 @@
 import RootLayout from "@layouts/RootLayout";
+import DashboardPage from "@pages/DashboardPage";
 import HomePage from "@pages/HomePage";
+import NumerologyManagementPage from "@pages/NumerologyManagementPage";
 import NumerologyReadingpage from "@pages/NumerologyReadingPage";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -15,6 +17,19 @@ const router = createBrowserRouter([
             {
                 path: "reading",
                 element: <NumerologyReadingpage/>
+            },
+            {
+                path: "admin",
+                children: [
+                    {
+                        path: "dashboard",
+                        element: <DashboardPage/>
+                    },
+                    {
+                        path: "numerology",
+                        element: <NumerologyManagementPage/>
+                    }
+                ]
             }
         ]
     }

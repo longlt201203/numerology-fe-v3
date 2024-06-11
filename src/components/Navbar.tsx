@@ -1,8 +1,7 @@
+import { MenuItem } from "@etc/types";
 import { Menu, MenuProps } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
     {
