@@ -1,32 +1,41 @@
+import ReadNumerologyRequestDto from "@dto/read-numerology.dto";
 import MainLayout from "@layouts/MainLayout";
-import { Button, DatePicker, Form, Input, Layout, Tooltip, Typography } from "antd";
+import { Button, DatePicker, Form, FormProps, Input, Layout, Tooltip, Typography } from "antd";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function NumerologyReadingpage() {
+    const onFinish: FormProps<ReadNumerologyRequestDto>["onFinish"] = (values) => {
+        console.log("Success:", values);
+    };
+
     return (
         <MainLayout>
             <Layout className="bg-white flex flex-col items-center gap-y-16">
                 <Title className="mb-0">Xem Thần Số Học</Title>
-                <Form
+                <Form<ReadNumerologyRequestDto>
                     autoComplete="off"
                     className="w-full md:w-3/4 lg:w-2/4 mx-auto"
-                    labelCol={{ span: 8, lg: { span: 6 } }}>
-                    <Form.Item
-                        label="Tên">
+                    labelCol={{ span: 8, lg: { span: 6 } }}
+                    onFinish={onFinish}>
+                    <Form.Item<ReadNumerologyRequestDto>
+                        label="Tên"
+                        name="firstName">
                         <Input placeholder="Ví dụ: A" />
                     </Form.Item>
-                    <Form.Item
-                        label="Họ và Tên đệm">
+                    <Form.Item<ReadNumerologyRequestDto>
+                        label="Họ và Tên đệm"
+                        name="lsName">
                         <Input placeholder="Ví dụ: Nguyễn Văn" />
                     </Form.Item>
-                    <Form.Item
-                        label="Ngày sinh">
+                    <Form.Item<ReadNumerologyRequestDto>
+                        label="Ngày sinh"
+                        name="dob">
                         <DatePicker className="w-full" format="DD/MM/YYYY" placeholder="Ví dụ: 20/12/2003" />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{ sm: { offset: 8 }, lg: { offset: 6 } }}>
-                        <Button type="primary">Xem Kết Quả</Button>
+                        <Button type="primary" htmlType="submit">Xem Kết Quả</Button>
                     </Form.Item>
                 </Form>
                 <div className="w-full">

@@ -41,7 +41,7 @@ export default function Navbar() {
         const keys = location.pathname.split("/");
         keys.shift();
         setCurrentKeys(keys);
-    }, [location])
+    }, [location]);
 
     const onClick: MenuProps["onClick"] = (e) => {
         navigate("/" + e.key);
