@@ -19,6 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false,
 
     "baseUrl": "./src",
     "paths": {
@@ -26,6 +27,8 @@
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
+      "@services/*": ["services/*"],
+      "@dto/*": ["dto/*"]
     }
   },
   "include": ["src"],

@@ -1,4 +1,5 @@
 import RootLayout from "@layouts/RootLayout";
+import AboutPage from "@pages/AboutPage";
 import DashboardPage from "@pages/DashboardPage";
 import HomePage from "@pages/HomePage";
 import NumerologyManagementPage from "@pages/NumerologyManagementPage";
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "reading",
                 element: <NumerologyReadingpage/>
+            },
+            {
+                path: "about",
+                element: <AboutPage/>
             },
             {
                 path: "admin",
