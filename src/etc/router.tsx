@@ -1,5 +1,7 @@
 import RootLayout from "@layouts/RootLayout";
 import AboutPage from "@pages/AboutPage";
+import AuthLoginGoogle from "@pages/AuthLoginGoogle";
+import AuthRoute from "@pages/AuthRoute";
 import DashboardPage from "@pages/DashboardPage";
 import HomePage from "@pages/HomePage";
 import LoginPage from "@pages/LoginPage";
@@ -15,27 +17,29 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <HomePage/>
-            },
-            {
-                path: "reading",
-                element: <NumerologyReadingpage/>
-            },
-            {
-                path: "year-calculating",
-                element: <NumerologyCalculatingPage/>
-            },
-            {
-                path: "about",
-                element: <AboutPage/>
+                children: [
+                    {
+                        path: "",
+                        element: <HomePage/>
+                    },
+                    {
+                        path: "reading",
+                        element: <NumerologyReadingpage/>
+                    },
+                    {
+                        path: "year-calculating",
+                        element: <NumerologyCalculatingPage/>
+                    },
+                    {
+                        path: "about",
+                        element: <AboutPage/>
+                    },
+                ]
             },
             {
                 path: "admin",
+                element: <AuthRoute/>,
                 children: [
-                    {
-                        path: "login",
-                        element: <LoginPage/>
-                    },
                     {
                         path: "dashboard",
                         element: <DashboardPage/>
@@ -43,6 +47,19 @@ const router = createBrowserRouter([
                     {
                         path: "numerology",
                         element: <NumerologyManagementPage/>
+                    }
+                ]
+            },
+            {
+                path: "auth",
+                children: [
+                    {
+                        path: "login",
+                        element: <LoginPage />
+                    },
+                    {
+                        path: "login-google",
+                        element: <AuthLoginGoogle />
                     }
                 ]
             }

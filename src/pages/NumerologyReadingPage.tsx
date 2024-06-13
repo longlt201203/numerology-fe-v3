@@ -5,7 +5,7 @@ import ReadNumerologyRequestDto from "@dto/read-numerology.dto";
 import { FormOnFinishHandler } from "@etc/types";
 import MainLayout from "@layouts/MainLayout";
 import NumerologyService from "@services/numerology.service";
-import { Button, DatePicker, Form, FormProps, Input, Layout, Tooltip, Typography, message } from "antd";
+import { Button, DatePicker, Form, Input, Layout, Tooltip, Typography, message } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 

@@ -1,10 +1,18 @@
 import { DashboardOutlined, GoogleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+import AuthService from "@services/auth.service";
 import { Button, Divider, Form, Input, Layout, Typography } from "antd";
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export default function LoginPage() {
+    const authService = AuthService.getInstance();
+
+    const handleLoginGoogle = async () => {
+        const uri = await authService.getAuthUri({ provider: "google", callbackMode: "login" });
+        window.location.href = uri;
+    }
+
     return (
         <Layout className="w-screen h-screen">
             <Content className="flex flex-col justify-center items-center">
@@ -23,7 +31,7 @@ export default function LoginPage() {
                     </Form.Item>
                     <Divider>Hoặc</Divider>
                     <Form.Item>
-                        <Button icon={<GoogleOutlined />} className="w-full">Đăng nhập với Google</Button>
+                        <Button icon={<GoogleOutlined />} className="w-full" onClick={handleLoginGoogle}>Đăng nhập với Google</Button>
                     </Form.Item>
                 </Form>
             </Content>
