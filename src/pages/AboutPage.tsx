@@ -1,37 +1,39 @@
-import { NumerologyEntryDto } from "@dto/numerology-entry.dto";
+import LazyParagraph from "@components/LazyParagraph";
+import siteContent from "@contents/site.content";
 import MainLayout from "@layouts/MainLayout";
-import NumerologyService from "@services/numerology.service";
 import { Typography } from "antd";
-import { useEffect, useState } from "react";
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export default function AboutPage() {
-    const numerologyService = NumerologyService.getInstance();
-    const [entries, setEntries] = useState<NumerologyEntryDto[]>([]);
-
-    const fetchNumerologyEntries = async () => {
-        const data = await numerologyService.getMany();
-        setEntries(data);
-    }
-
-    useEffect(() => {
-        fetchNumerologyEntries();
-    }, []);
-    
     return (
         <MainLayout>
             <Title>Thần số học là gì?</Title>
+            <LazyParagraph content={siteContent.numerology.introduction} />
             <Title>Ý nghĩa của những con số</Title>
-            {entries.map((entry) => (
-                <div key={entry.id}>
-                    <Title level={2}>Số {entry.number}</Title>
-                    <Title level={3}>Số tâm linh {entry.number}</Title>
-                    {entry.psychicDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
-                    <Title level={3}>Số vận mệnh {entry.number}</Title>
-                    {entry.destinyDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
-                    <Title level={3}>Số tên {entry.number}</Title>
-                    {entry.nameDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
+            <Title level={3}>Các chỉ số ảnh hưởng lên bạn</Title>
+            <Title level={4}>Chỉ số tâm linh</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.psychic.longDescription} />
+            <Title level={4}>Chỉ số vận mệnh</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.destiny.longDescription} />
+            <Title level={4}>Chỉ số tên đầy đủ</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.name.fullName.longDescription} />
+            <Title level={4}>Chỉ số tên riêng</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.name.firstName.longDescription} />
+            <Title level={3}>Xem thần số cho năm</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.year.longDescription} />
+            <Title level={3}>Chi tiết từng con số</Title>
+            {siteContent.numerology.numberMeanings.map((item, index) => (
+                <div key={index}>
+                    <Title level={4}>Số {item.number}</Title>
+                    <Title level={5}>Chỉ số tâm linh {item.number}</Title> 
+                    <LazyParagraph content={item.description.psychic} />
+                    <Title level={5}>Chỉ số vận mệnh {item.number}</Title>
+                    <LazyParagraph content={item.description.destiny} />
+                    <Title level={5}>Chỉ số tên {item.number}</Title>
+                    <LazyParagraph content={item.description.name} />
+                    <Title level={5}>Năm số {item.number}</Title>
+                    <LazyParagraph content={item.description.year} />
                 </div>
             ))}
         </MainLayout>

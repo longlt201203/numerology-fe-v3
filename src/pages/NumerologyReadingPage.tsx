@@ -1,3 +1,5 @@
+import LazyParagraph from "@components/LazyParagraph";
+import siteContent from "@contents/site.content";
 import NumerologyCalculateResultDto from "@dto/numerology-calculate-result.dto";
 import ReadNumerologyRequestDto from "@dto/read-numerology.dto";
 import { FormOnFinishHandler } from "@etc/types";
@@ -59,17 +61,20 @@ export default function NumerologyReadingpage() {
                     initialValues={initVal}>
                     <Form.Item<ReadNumerologyRequestDto>
                         label="Tên"
-                        name="firstName">
+                        name="firstName"
+                        rules={[{ required: true, message: "Vui lòng nhập tên" }]}>
                         <Input placeholder="Ví dụ: A" />
                     </Form.Item>
                     <Form.Item<ReadNumerologyRequestDto>
                         label="Họ và Tên đệm"
-                        name="lsName">
+                        name="lsName"
+                        rules={[{ required: true, message: "Vui lòng nhập họ và tên đệm" }]}>
                         <Input placeholder="Ví dụ: Nguyễn Văn" />
                     </Form.Item>
                     <Form.Item<ReadNumerologyRequestDto>
                         label="Ngày sinh"
-                        name="dob">
+                        name="dob"
+                        rules={[{ required: true, message: "Vui lòng nhập ngày sinh" }]}>
                         <DatePicker<Dayjs> className="w-full" format="DD/MM/YYYY" placeholder="Ví dụ: 20/12/2003" />
                     </Form.Item>
                     <Form.Item
@@ -80,39 +85,23 @@ export default function NumerologyReadingpage() {
                 {result && (
                     <div className="w-full">
                         <Title className="text-center">Kết Quả Của Bạn</Title>
-                        <Tooltip title="Chỉ số Tâm linh" placement="topLeft">
+                        <Tooltip title={siteContent.numerology.numberTypes.psychic.shortDescription} placement="topLeft">
                             <Title level={3}>Chỉ số Tâm linh: {result.psychicNumber}</Title>
                         </Tooltip>
-                        {result.psychicDescription.split("\n").map((item, index) => (
-                            <Paragraph key={index}>
-                                {item}
-                            </Paragraph>
-                        ))}
-                        <Tooltip title="Chỉ số Vận mệnh" placement="topLeft">
+                        <LazyParagraph content={result.psychicDescription} />
+                        <Tooltip title={siteContent.numerology.numberTypes.destiny.shortDescription} placement="topLeft">
                             <Title level={3}>Chỉ số Vận mệnh: {result.destinyNumber}</Title>
                         </Tooltip>
-                        {result.destinyDescription.split("\n").map((item, index) => (
-                            <Paragraph key={index}>
-                                {item}
-                            </Paragraph>
-                        ))}
+                        <LazyParagraph content={result.destinyDescription} />
                         <Title level={3}>Chỉ số Tên</Title>
-                        <Tooltip title="Chỉ số Tên đầy đủ" placement="topLeft">
+                        <Tooltip title={siteContent.numerology.numberTypes.name.fullName.shortDescription} placement="topLeft">
                             <Title level={4}>Chỉ số Tên đầy đủ: {result.fullNameNumber}</Title>
                         </Tooltip>
-                        {result.fullNameDescription.split("\n").map((item, index) => (
-                            <Paragraph key={index}>
-                                {item}
-                            </Paragraph>
-                        ))}
-                        <Tooltip title="Chỉ số Tên riêng" placement="topLeft">
+                        <LazyParagraph content={result.fullNameDescription} />
+                        <Tooltip title={siteContent.numerology.numberTypes.name.firstName.shortDescription} placement="topLeft">
                             <Title level={4}>Chỉ số Tên riêng: {result.firstNameNumber}</Title>
                         </Tooltip>
-                        {result.firstNameDescription.split("\n").map((item, index) => (
-                            <Paragraph key={index}>
-                                {item}
-                            </Paragraph>
-                        ))}
+                        <LazyParagraph content={result.firstNameDescription} />
                     </div>
                 )}
             </Layout>

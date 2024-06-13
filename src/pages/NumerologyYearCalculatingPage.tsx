@@ -1,9 +1,10 @@
+import siteContent from "@contents/site.content";
 import CalculateNumerologyYearRequestDto from "@dto/calculate-numerology-year-request.dto";
 import CalculateNumerologyYearResultDto from "@dto/calculate-numerology-year-result.dto";
 import { FormOnFinishHandler } from "@etc/types";
 import MainLayout from "@layouts/MainLayout";
 import NumerologyService from "@services/numerology.service";
-import { Button, DatePicker, Form, FormProps, Layout, Tooltip, Typography, message } from "antd";
+import { Button, DatePicker, Form, Layout, Tooltip, Typography, message } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 
@@ -57,12 +58,14 @@ export default function NumerologyCalculatingPage() {
                     onFinish={onFinish}>
                     <Form.Item<CalculateNumerologyYearRequestDto>
                         name="dob"
-                        label="Ngày sinh">
+                        label="Ngày sinh"
+                        rules={[{ required: true, message: "Vui lòng nhập ngày sinh" }]}>
                         <DatePicker className="w-full" format="DD/MM/YYYY" placeholder="Ví dụ: 20/12/2003" />
                     </Form.Item>
                     <Form.Item<CalculateNumerologyYearRequestDto>
                         name="year"
-                        label="Năm cần xem">
+                        label="Năm cần xem"
+                        rules={[{ required: true, message: "Vui lòng nhập năm cần xem" }]}>
                         <DatePicker className="w-full" picker="year" placeholder="Ví dụ: 2024" />
                     </Form.Item>
                     <Form.Item
@@ -73,7 +76,7 @@ export default function NumerologyCalculatingPage() {
                 {result && (
                     <div className="w-full">
                         <Title className="text-center">Kết Quả Của Bạn</Title>
-                        <Tooltip title="Năm thần số" placement="topLeft">
+                        <Tooltip title={siteContent.numerology.numberTypes.year.shortDescription} placement="topLeft">
                             <Title level={3}>Năm thần số của bạn: {result.yearNumber}</Title>
                         </Tooltip>
                         {result.yearDescription.split("\n").map((item, index) => (

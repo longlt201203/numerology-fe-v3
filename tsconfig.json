@@ -28,7 +28,8 @@
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
       "@services/*": ["services/*"],
-      "@dto/*": ["dto/*"]
+      "@dto/*": ["dto/*"],
+      "@contents/*": ["contents/*"]
     }
   },
   "include": ["src"],

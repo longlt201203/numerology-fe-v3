@@ -1,3 +1,4 @@
+import { BookOutlined, DashboardOutlined } from "@ant-design/icons";
 import { MenuItem } from "@etc/types";
 import { Layout, Menu, MenuProps, Typography, theme } from "antd";
 import { PropsWithChildren, useEffect, useState } from "react";
@@ -9,11 +10,13 @@ const { Text } = Typography;
 const menuItems: MenuItem[] = [
     {
         label: "Quản lý chung",
-        key: "dashboard"
+        key: "dashboard",
+        icon: <DashboardOutlined />
     },
     {
         label: "Thần số học",
-        key: "numerology"
+        key: "numerology",
+        icon: <BookOutlined />
     }
 ];
 

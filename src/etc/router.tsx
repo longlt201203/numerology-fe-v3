@@ -2,6 +2,7 @@ import RootLayout from "@layouts/RootLayout";
 import AboutPage from "@pages/AboutPage";
 import DashboardPage from "@pages/DashboardPage";
 import HomePage from "@pages/HomePage";
+import LoginPage from "@pages/LoginPage";
 import NumerologyManagementPage from "@pages/NumerologyManagementPage";
 import NumerologyReadingpage from "@pages/NumerologyReadingPage";
 import NumerologyCalculatingPage from "@pages/NumerologyYearCalculatingPage";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: "admin",
                 children: [
+                    {
+                        path: "login",
+                        element: <LoginPage/>
+                    },
                     {
                         path: "dashboard",
                         element: <DashboardPage/>

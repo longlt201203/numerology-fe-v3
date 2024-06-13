@@ -58,15 +58,16 @@ export default function NumerologyManagementPage() {
 
     const fetchNumerologyEntries = async () => {
         const data = await numerologyService.getMany();
-        for (const item of data) {
-            const index = collapseItems.findIndex(e => item.number == e.key);
-            collapseItems[index] = {
-                key: (index + 1),
-                label: `Số ${index + 1}`,
-                children: <NumerologyEntryItem data={item} onSubmit={updateNumerologyEntry} />
+        setCollapseItems((prev) => {
+            for (const item of data) {
+                const index = prev.findIndex(e => item.number == e.key);
+                prev[index] = {
+                    ...prev[index],
+                    children: <NumerologyEntryItem data={item} onSubmit={updateNumerologyEntry} />
+                }
             }
-        }
-        setCollapseItems(collapseItems);
+            return [...prev];
+        });
     }
 
     useEffect(() => {
@@ -74,8 +75,34 @@ export default function NumerologyManagementPage() {
     }, []);
 
     const handleImportEntries: UploadFileOnChangeHandler = (info) => {
+        if (info.file.status == "uploading") {
+            messageApi.open({
+                key: "importEntries",
+                content: "Đang tải file lên...",
+                type: "loading"
+            });
+        }
         if (info.file.status == "done") {
-            messageApi.success("Cập nhật thành công!");
+            messageApi.open({
+                key: "importEntries",
+                content: "Cập nhật thành công!",
+                type: "success"
+            });
+            fetchNumerologyEntries();
+            // setCollapseItems((prev) => {
+            //     prev[0] = {
+            //         ...prev[0],
+            //         children: "asjkdhasjkdhjkasjkdashjkd"
+            //     }
+            //     return [...prev];
+            // })
+        }
+        if (info.file.status == "error") {
+            messageApi.open({
+                key: "importEntries",
+                content: "Cập nhật thất bại! Kiểm tra lại định dạng file!",
+                type: "error"
+            })
         }
     }
 
