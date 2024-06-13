@@ -4,6 +4,7 @@ import DashboardPage from "@pages/DashboardPage";
 import HomePage from "@pages/HomePage";
 import NumerologyManagementPage from "@pages/NumerologyManagementPage";
 import NumerologyReadingpage from "@pages/NumerologyReadingPage";
+import NumerologyCalculatingPage from "@pages/NumerologyYearCalculatingPage";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
             {
                 path: "reading",
                 element: <NumerologyReadingpage/>
+            },
+            {
+                path: "year-calculating",
+                element: <NumerologyCalculatingPage/>
             },
             {
                 path: "about",

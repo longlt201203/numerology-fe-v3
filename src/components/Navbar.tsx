@@ -17,11 +17,7 @@ const items: MenuItem[] = [
                 key: "reading"
             },
             {
-                label: "So Sánh Thần Số Học",
-                key: "comparing"
-            },
-            {
-                label: "Thần Số Học Theo Năm",
+                label: "Tính năm thần số",
                 key: "year-calculating"
             },
         ]

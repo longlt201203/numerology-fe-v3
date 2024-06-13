@@ -1,23 +1,62 @@
+import NumerologyCalculateResultDto from "@dto/numerology-calculate-result.dto";
 import ReadNumerologyRequestDto from "@dto/read-numerology.dto";
+import { FormOnFinishHandler } from "@etc/types";
 import MainLayout from "@layouts/MainLayout";
-import { Button, DatePicker, Form, FormProps, Input, Layout, Tooltip, Typography } from "antd";
+import NumerologyService from "@services/numerology.service";
+import { Button, DatePicker, Form, FormProps, Input, Layout, Tooltip, Typography, message } from "antd";
+import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
 
 const { Title, Paragraph } = Typography;
 
+const initVal: ReadNumerologyRequestDto = {
+    firstName: "",
+    lsName: "",
+    dob: dayjs()
+}
+
 export default function NumerologyReadingpage() {
-    const onFinish: FormProps<ReadNumerologyRequestDto>["onFinish"] = (values) => {
-        console.log("Success:", values);
+    const [messageApi, contextHolder] = message.useMessage();
+    const numerologyService = NumerologyService.getInstance();
+    const [result, setResult] = useState<NumerologyCalculateResultDto>();
+
+    const onFinish: FormOnFinishHandler<ReadNumerologyRequestDto> = (values) => {
+        messageApi.open({
+            key: "reading",
+            content: "Chờ kết quả...",
+            type: "loading"
+        });
+        numerologyService
+            .readNumerology(values)
+            .then((data) => {
+                messageApi.open({
+                    key: "reading",
+                    content: "Xong!",
+                    type: "success"
+                });
+                setResult(data);
+            })
+            .catch((err) => {
+                messageApi.open({
+                    key: "reading",
+                    content: "Lỗi!",
+                    type: "error"
+                });
+                console.log(err);
+            });
     };
 
     return (
         <MainLayout>
+            {contextHolder}
             <Layout className="bg-white flex flex-col items-center gap-y-16">
                 <Title className="mb-0">Xem Thần Số Học</Title>
                 <Form<ReadNumerologyRequestDto>
                     autoComplete="off"
                     className="w-full md:w-3/4 lg:w-2/4 mx-auto"
                     labelCol={{ span: 8, lg: { span: 6 } }}
-                    onFinish={onFinish}>
+                    onFinish={onFinish}
+                    initialValues={initVal}>
                     <Form.Item<ReadNumerologyRequestDto>
                         label="Tên"
                         name="firstName">
@@ -31,65 +70,51 @@ export default function NumerologyReadingpage() {
                     <Form.Item<ReadNumerologyRequestDto>
                         label="Ngày sinh"
                         name="dob">
-                        <DatePicker className="w-full" format="DD/MM/YYYY" placeholder="Ví dụ: 20/12/2003" />
+                        <DatePicker<Dayjs> className="w-full" format="DD/MM/YYYY" placeholder="Ví dụ: 20/12/2003" />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{ sm: { offset: 8 }, lg: { offset: 6 } }}>
                         <Button type="primary" htmlType="submit">Xem Kết Quả</Button>
                     </Form.Item>
                 </Form>
-                <div className="w-full">
-                    <Title className="text-center">Kết Quả Của Bạn</Title>
-                    <Tooltip title="Chỉ số tính cách" placement="topLeft">
-                        <Title level={3}>Chỉ số Tính cách: 2</Title>
-                    </Tooltip>
-                    <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur laoreet sapien sit amet pellentesque. Nulla congue consectetur enim sagittis mollis. Fusce commodo, augue vel congue aliquet, lorem diam ultricies enim, ac tempor dui leo eu arcu. Nullam pharetra sodales dignissim. Curabitur dignissim scelerisque pretium. Fusce urna lorem, dictum sit amet urna quis, malesuada ornare risus. Integer vehicula, magna at ornare euismod, urna metus consectetur nisl, vel scelerisque urna odio varius leo. Morbi eget est sed eros pulvinar faucibus ut non neque. Duis dignissim sem congue vehicula elementum.
-                    </Paragraph>
-                    <Paragraph>
-                        Nullam ut placerat sem. Mauris ac lacus eget mauris tincidunt laoreet at non nisi. Nam fringilla erat eget mauris elementum, vitae mollis elit lobortis. Nulla facilisi. Fusce vel sagittis velit. Etiam consectetur tincidunt nisi ac blandit. Maecenas mattis ex sit amet metus scelerisque malesuada. Fusce suscipit lacus in erat tempor venenatis non et nunc. Aenean ut scelerisque erat, eu accumsan eros. Phasellus non fermentum velit, nec porta erat. Pellentesque semper ex ac ligula blandit tincidunt. Nullam condimentum, nunc vel aliquet luctus, urna urna pellentesque libero, at placerat mauris nibh quis magna.
-                    </Paragraph>
-                    <Paragraph>
-                        Fusce et risus at libero tempor commodo. Donec mollis neque eu dui ultricies laoreet. Donec ac magna nisi. Duis eu justo non ligula condimentum aliquam. Aliquam neque enim, laoreet quis bibendum sed, fermentum sit amet odio. In hac habitasse platea dictumst. Pellentesque tellus metus, eleifend quis tempus non, faucibus eu dolor.
-                    </Paragraph>
-                    <Tooltip title="Chỉ số Vận mệnh" placement="topLeft">
-                        <Title level={3}>Chỉ số Vận mệnh: 1</Title>
-                    </Tooltip>
-                    <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur laoreet sapien sit amet pellentesque. Nulla congue consectetur enim sagittis mollis. Fusce commodo, augue vel congue aliquet, lorem diam ultricies enim, ac tempor dui leo eu arcu. Nullam pharetra sodales dignissim. Curabitur dignissim scelerisque pretium. Fusce urna lorem, dictum sit amet urna quis, malesuada ornare risus. Integer vehicula, magna at ornare euismod, urna metus consectetur nisl, vel scelerisque urna odio varius leo. Morbi eget est sed eros pulvinar faucibus ut non neque. Duis dignissim sem congue vehicula elementum.
-                    </Paragraph>
-                    <Paragraph>
-                        Nullam ut placerat sem. Mauris ac lacus eget mauris tincidunt laoreet at non nisi. Nam fringilla erat eget mauris elementum, vitae mollis elit lobortis. Nulla facilisi. Fusce vel sagittis velit. Etiam consectetur tincidunt nisi ac blandit. Maecenas mattis ex sit amet metus scelerisque malesuada. Fusce suscipit lacus in erat tempor venenatis non et nunc. Aenean ut scelerisque erat, eu accumsan eros. Phasellus non fermentum velit, nec porta erat. Pellentesque semper ex ac ligula blandit tincidunt. Nullam condimentum, nunc vel aliquet luctus, urna urna pellentesque libero, at placerat mauris nibh quis magna.
-                    </Paragraph>
-                    <Paragraph>
-                        Fusce et risus at libero tempor commodo. Donec mollis neque eu dui ultricies laoreet. Donec ac magna nisi. Duis eu justo non ligula condimentum aliquam. Aliquam neque enim, laoreet quis bibendum sed, fermentum sit amet odio. In hac habitasse platea dictumst. Pellentesque tellus metus, eleifend quis tempus non, faucibus eu dolor.
-                    </Paragraph>
-                    <Title level={3}>Chỉ số Tên</Title>
-                    <Tooltip title="Chỉ số Tên đầy đủ" placement="topLeft">
-                        <Title level={4}>Chỉ số Tên đầy đủ: 7</Title>
-                    </Tooltip>
-                    <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur laoreet sapien sit amet pellentesque. Nulla congue consectetur enim sagittis mollis. Fusce commodo, augue vel congue aliquet, lorem diam ultricies enim, ac tempor dui leo eu arcu. Nullam pharetra sodales dignissim. Curabitur dignissim scelerisque pretium. Fusce urna lorem, dictum sit amet urna quis, malesuada ornare risus. Integer vehicula, magna at ornare euismod, urna metus consectetur nisl, vel scelerisque urna odio varius leo. Morbi eget est sed eros pulvinar faucibus ut non neque. Duis dignissim sem congue vehicula elementum.
-                    </Paragraph>
-                    <Paragraph>
-                        Nullam ut placerat sem. Mauris ac lacus eget mauris tincidunt laoreet at non nisi. Nam fringilla erat eget mauris elementum, vitae mollis elit lobortis. Nulla facilisi. Fusce vel sagittis velit. Etiam consectetur tincidunt nisi ac blandit. Maecenas mattis ex sit amet metus scelerisque malesuada. Fusce suscipit lacus in erat tempor venenatis non et nunc. Aenean ut scelerisque erat, eu accumsan eros. Phasellus non fermentum velit, nec porta erat. Pellentesque semper ex ac ligula blandit tincidunt. Nullam condimentum, nunc vel aliquet luctus, urna urna pellentesque libero, at placerat mauris nibh quis magna.
-                    </Paragraph>
-                    <Paragraph>
-                        Fusce et risus at libero tempor commodo. Donec mollis neque eu dui ultricies laoreet. Donec ac magna nisi. Duis eu justo non ligula condimentum aliquam. Aliquam neque enim, laoreet quis bibendum sed, fermentum sit amet odio. In hac habitasse platea dictumst. Pellentesque tellus metus, eleifend quis tempus non, faucibus eu dolor.
-                    </Paragraph>
-                    <Tooltip title="Chỉ số Tên riêng" placement="topLeft">
-                        <Title level={4}>Chỉ số Tên riêng: 9</Title>
-                    </Tooltip>
-                    <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consectetur laoreet sapien sit amet pellentesque. Nulla congue consectetur enim sagittis mollis. Fusce commodo, augue vel congue aliquet, lorem diam ultricies enim, ac tempor dui leo eu arcu. Nullam pharetra sodales dignissim. Curabitur dignissim scelerisque pretium. Fusce urna lorem, dictum sit amet urna quis, malesuada ornare risus. Integer vehicula, magna at ornare euismod, urna metus consectetur nisl, vel scelerisque urna odio varius leo. Morbi eget est sed eros pulvinar faucibus ut non neque. Duis dignissim sem congue vehicula elementum.
-                    </Paragraph>
-                    <Paragraph>
-                        Nullam ut placerat sem. Mauris ac lacus eget mauris tincidunt laoreet at non nisi. Nam fringilla erat eget mauris elementum, vitae mollis elit lobortis. Nulla facilisi. Fusce vel sagittis velit. Etiam consectetur tincidunt nisi ac blandit. Maecenas mattis ex sit amet metus scelerisque malesuada. Fusce suscipit lacus in erat tempor venenatis non et nunc. Aenean ut scelerisque erat, eu accumsan eros. Phasellus non fermentum velit, nec porta erat. Pellentesque semper ex ac ligula blandit tincidunt. Nullam condimentum, nunc vel aliquet luctus, urna urna pellentesque libero, at placerat mauris nibh quis magna.
-                    </Paragraph>
-                    <Paragraph>
-                        Fusce et risus at libero tempor commodo. Donec mollis neque eu dui ultricies laoreet. Donec ac magna nisi. Duis eu justo non ligula condimentum aliquam. Aliquam neque enim, laoreet quis bibendum sed, fermentum sit amet odio. In hac habitasse platea dictumst. Pellentesque tellus metus, eleifend quis tempus non, faucibus eu dolor.
-                    </Paragraph>
-                </div>
+                {result && (
+                    <div className="w-full">
+                        <Title className="text-center">Kết Quả Của Bạn</Title>
+                        <Tooltip title="Chỉ số Tâm linh" placement="topLeft">
+                            <Title level={3}>Chỉ số Tâm linh: {result.psychicNumber}</Title>
+                        </Tooltip>
+                        {result.psychicDescription.split("\n").map((item, index) => (
+                            <Paragraph key={index}>
+                                {item}
+                            </Paragraph>
+                        ))}
+                        <Tooltip title="Chỉ số Vận mệnh" placement="topLeft">
+                            <Title level={3}>Chỉ số Vận mệnh: {result.destinyNumber}</Title>
+                        </Tooltip>
+                        {result.destinyDescription.split("\n").map((item, index) => (
+                            <Paragraph key={index}>
+                                {item}
+                            </Paragraph>
+                        ))}
+                        <Title level={3}>Chỉ số Tên</Title>
+                        <Tooltip title="Chỉ số Tên đầy đủ" placement="topLeft">
+                            <Title level={4}>Chỉ số Tên đầy đủ: {result.fullNameNumber}</Title>
+                        </Tooltip>
+                        {result.fullNameDescription.split("\n").map((item, index) => (
+                            <Paragraph key={index}>
+                                {item}
+                            </Paragraph>
+                        ))}
+                        <Tooltip title="Chỉ số Tên riêng" placement="topLeft">
+                            <Title level={4}>Chỉ số Tên riêng: {result.firstNameNumber}</Title>
+                        </Tooltip>
+                        {result.firstNameDescription.split("\n").map((item, index) => (
+                            <Paragraph key={index}>
+                                {item}
+                            </Paragraph>
+                        ))}
+                    </div>
+                )}
             </Layout>
         </MainLayout>
     );

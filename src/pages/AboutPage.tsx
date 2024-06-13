@@ -4,7 +4,7 @@ import NumerologyService from "@services/numerology.service";
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function AboutPage() {
     const numerologyService = NumerologyService.getInstance();
@@ -27,11 +27,11 @@ export default function AboutPage() {
                 <div key={entry.id}>
                     <Title level={2}>Số {entry.number}</Title>
                     <Title level={3}>Số tâm linh {entry.number}</Title>
-                    {entry.psychicDescription.split("\n").map(item => (<Paragraph>{item}</Paragraph>))}
+                    {entry.psychicDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
                     <Title level={3}>Số vận mệnh {entry.number}</Title>
-                    {entry.destinyDescription.split("\n").map(item => (<Paragraph>{item}</Paragraph>))}
+                    {entry.destinyDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
                     <Title level={3}>Số tên {entry.number}</Title>
-                    {entry.nameDescription.split("\n").map(item => (<Paragraph>{item}</Paragraph>))}
+                    {entry.nameDescription.split("\n").map((item, index) => (<Paragraph key={index}>{item}</Paragraph>))}
                 </div>
             ))}
         </MainLayout>

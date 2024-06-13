@@ -4,4 +4,5 @@ export class NumerologyEntryDto {
     psychicDescription: string;
     destinyDescription: string;
     nameDescription: string;
+    yearDescription: string;
 }

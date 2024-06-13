@@ -1,10 +1,11 @@
 import { NumerologyEntryDto } from "@dto/numerology-entry.dto";
-import { Button, Form, FormProps } from "antd";
+import { FormOnFinishHandler } from "@etc/types";
+import { Button, Form } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 export interface NumerologyEntryItemProps {
     data?: NumerologyEntryDto;
-    onSubmit?: FormProps<NumerologyEntryDto>["onFinish"];
+    onSubmit?: FormOnFinishHandler<NumerologyEntryDto>;
 }
 
 export default function NumerologyEntryItem(props: NumerologyEntryItemProps) {
@@ -24,6 +25,11 @@ export default function NumerologyEntryItem(props: NumerologyEntryItemProps) {
             <Form.Item<NumerologyEntryDto>
                 name="nameDescription"
                 label="Số tên">
+                <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
+            </Form.Item>
+            <Form.Item<NumerologyEntryDto>
+                name="yearDescription"
+                label="Năm thần số">
                 <TextArea autoSize={{ minRows: 3, maxRows: 5 }} />
             </Form.Item>
             <Form.Item wrapperCol={{ sm: { offset: 8 }, md: { offset: 6 }, lg:  { offset: 4 } }}>
