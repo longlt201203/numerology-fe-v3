@@ -1,14 +1,16 @@
 import RootLayout from "@layouts/RootLayout";
-import AboutPage from "@pages/AboutPage";
-import AuthLoginGoogle from "@pages/AuthLoginGoogle";
-import AuthRoute from "@pages/AuthRoute";
-import DashboardPage from "@pages/DashboardPage";
-import HomePage from "@pages/HomePage";
-import LoginPage from "@pages/LoginPage";
-import NumerologyManagementPage from "@pages/NumerologyManagementPage";
-import NumerologyReadingpage from "@pages/NumerologyReadingPage";
-import NumerologyCalculatingPage from "@pages/NumerologyYearCalculatingPage";
+import AboutPage from "@pages/public/AboutPage";
+import AuthLoginGoogle from "@pages/auth/AuthLoginGoogle";
+import AuthRoute from "@pages/auth/AuthRoute";
+import DashboardPage from "@pages/admin/DashboardPage";
+import HomePage from "@pages/public/HomePage";
+import LoginPage from "@pages/auth/LoginPage";
+import NumerologyManagementPage from "@pages/admin/NumerologyManagementPage";
+import NumerologyReadingpage from "@pages/public/NumerologyReadingPage";
+import NumerologyCalculatingPage from "@pages/public/NumerologyYearCalculatingPage";
 import { createBrowserRouter } from "react-router-dom";
+import UnauthorizedErrorPage from "@pages/public/UnauthorizedErrorPage";
+import NotFoundErrorPage from "@pages/public/NotFoundErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +64,19 @@ const router = createBrowserRouter([
                         element: <AuthLoginGoogle />
                     }
                 ]
+            },
+            {
+                path: "error",
+                children: [
+                    {
+                        path: "401",
+                        element: <UnauthorizedErrorPage/>
+                    }
+                ]
+            },
+            {
+                path: "*",
+                element: <NotFoundErrorPage/>
             }
         ]
     }

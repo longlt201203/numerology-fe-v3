@@ -10,23 +10,28 @@ export default function AuthLogin() {
     const [params] = useSearchParams();
     const navigate = useNavigate();
 
+    const login = async (code: string) => {
+        try {
+            const data = await authService.loginWithGoogle({ code: code });
+            localStorage.setItem("accessToken", data.accessToken);
+            navigate("/admin/dashboard");
+        } catch (err) {
+            console.log(err);
+            navigate("/error/401")
+        }
+    }
+
     useEffect(() => {
         const code = params.get("code");
         if (code) {
-            const login = async () => {
-                const data = await authService.loginWithGoogle({ code: code });
-                localStorage.setItem("accessToken", data.accessToken);
-                navigate("/admin/dashboard");
-            }
-
-            login();
+            login(code);
         }
     }, []);
 
     return (
         <Layout className="w-screen h-screen">
             <Flex className="w-full h-full" justify="center" align="center" vertical gap="small">
-                <Spin size="large"/>
+                <Spin size="large" />
                 <Title>Loading...</Title>
             </Flex>
         </Layout>

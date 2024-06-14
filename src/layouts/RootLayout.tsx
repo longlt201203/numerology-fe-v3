@@ -9,7 +9,7 @@ export default function RootLayout() {
                 colorPrimaryBg: "#E1AFD1"
             }
         }}>
-            <Outlet/>
+            <Outlet />
         </ConfigProvider>
     );
 }

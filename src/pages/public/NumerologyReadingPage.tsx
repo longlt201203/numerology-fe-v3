@@ -9,7 +9,7 @@ import { Button, DatePicker, Form, Input, Layout, Tooltip, Typography, message }
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const initVal: ReadNumerologyRequestDto = {
     firstName: "",

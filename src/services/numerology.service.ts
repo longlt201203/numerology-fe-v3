@@ -32,7 +32,8 @@ export default class NumerologyService extends Service {
     }
 
     getExportEntriesJSONLink() {
-        const apiUri = this.getApiUri("/export-entries-json")
+        const accessToken = localStorage.getItem("accessToken");
+        const apiUri = this.getApiUri("/export-entries-json", { accessToken });
         return apiUri.toString();
     }
 

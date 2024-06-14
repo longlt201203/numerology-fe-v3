@@ -29,7 +29,8 @@
       "@components/*": ["components/*"],
       "@services/*": ["services/*"],
       "@dto/*": ["dto/*"],
-      "@contents/*": ["contents/*"]
+      "@contents/*": ["contents/*"],
+      "@contexts/*": ["contexts/*"]
     }
   },
   "include": ["src"],

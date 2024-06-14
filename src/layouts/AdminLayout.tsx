@@ -1,4 +1,4 @@
-import { BookOutlined, DashboardOutlined } from "@ant-design/icons";
+import { BookOutlined, DashboardOutlined, DatabaseOutlined } from "@ant-design/icons";
 import { MenuItem } from "@etc/types";
 import { Layout, Menu, MenuProps, Typography, theme } from "antd";
 import { PropsWithChildren, useEffect, useState } from "react";
@@ -17,6 +17,11 @@ const menuItems: MenuItem[] = [
         label: "Thần số học",
         key: "numerology",
         icon: <BookOutlined />
+    },
+    {
+        label: "Dữ liệu người dùng",
+        key: "user-data",
+        icon: <DatabaseOutlined />
     }
 ];
 

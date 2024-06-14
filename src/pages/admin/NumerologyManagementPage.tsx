@@ -52,7 +52,10 @@ export default function NumerologyManagementPage() {
         },
         {
             key: "exportJSON",
-            label: <a href={numerologyService.getExportEntriesJSONLink()} target="_blank">JSON</a>
+            label: "JSON",
+            onClick: () => {
+                window.open(numerologyService.getExportEntriesJSONLink(), "_blank");
+            }
         }
     ];
 
@@ -106,6 +109,8 @@ export default function NumerologyManagementPage() {
         }
     }
 
+    const accessToken = localStorage.getItem("accessToken");
+
     return (
         <AdminLayout>
             {contextHolder}
@@ -113,6 +118,9 @@ export default function NumerologyManagementPage() {
             <Space>
                 <Upload
                     action={numerologyService.getImportEntriesLink()}
+                    headers={{
+                        Authorization: `Bearer ${accessToken}`
+                    }}
                     accept="application/json"
                     maxCount={1}
                     onChange={handleImportEntries}
