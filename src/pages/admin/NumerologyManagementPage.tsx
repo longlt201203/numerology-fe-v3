@@ -4,7 +4,7 @@ import { NumerologyEntryDto } from "@dto/numerology-entry.dto";
 import { CollapseItem, MenuItem, UploadFileOnChangeHandler } from "@etc/types";
 import AdminLayout from "@layouts/AdminLayout";
 import NumerologyService from "@services/numerology.service";
-import { Button, Collapse, Dropdown, Flex, Space, Typography, Upload, message } from "antd";
+import { Button, Collapse, Dropdown, Space, Typography, Upload, message } from "antd";
 import { useEffect, useState } from "react";
 
 const { Title } = Typography;
@@ -21,7 +21,7 @@ export default function NumerologyManagementPage() {
         });
         numerologyService
             .updateOrCreateNumerologyEntry(dto)
-            .then((data) => {
+            .then(() => {
                 messageApi.open({
                     key: `update ${dto.number}`,
                     type: "success",

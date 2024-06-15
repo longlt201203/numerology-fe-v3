@@ -1,6 +1,6 @@
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { MenuItem } from "@etc/types";
-import { Button, Flex, FloatButton, Layout, Menu, MenuProps, Typography } from "antd";
+import { Button, ConfigProvider, Flex, FloatButton, Layout, Menu, MenuProps, Typography } from "antd";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -82,7 +82,18 @@ export default function MainLayout({ children }: PropsWithChildren) {
                     <Text className="text-white text-2xl">VnNumer</Text>
                     <HorizontalNavbar />
                     <div className="flex md:hidden flex-1 justify-end">
-                        <Button type="default" icon={verticalMenuOpen ? <CloseOutlined /> : <MenuOutlined />} onClick={() => setVerticalMenuOpen(!verticalMenuOpen)}></Button>
+                        <ConfigProvider theme={{
+                            token: {
+                                colorText: "white"
+                            },
+                            components: {
+                                Button: {
+
+                                }
+                            }
+                        }}>
+                            <Button type="text" icon={verticalMenuOpen ? <CloseOutlined /> : <MenuOutlined />} onClick={() => setVerticalMenuOpen(!verticalMenuOpen)}></Button>
+                        </ConfigProvider>
                     </div>
                 </Flex>
                 {verticalMenuOpen && <VericalNavbar />}

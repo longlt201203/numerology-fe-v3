@@ -49,7 +49,7 @@ export default function NumerologyCalculatingPage() {
         <MainLayout>
             {contextHolder}
             <Layout className="bg-white flex flex-col items-center gap-y-16">
-                <Title className="mb-0">Xem Năm Thần Số</Title>
+                <Title className="mb-0" level={2}>Xem Năm Thần Số</Title>
                 <Form<CalculateNumerologyYearRequestDto>
                     autoComplete="off"
                     className="w-full md:w-3/4 lg:w-2/4 mx-auto"

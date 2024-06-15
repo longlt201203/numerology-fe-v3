@@ -16,5 +16,9 @@ export default defineConfig({
       "@contents": path.resolve(__dirname, "src/contents"),
       "@contexts": path.resolve(__dirname, "src/contexts"),
     }
+  },
+  server: {
+    host: "0.0.0.0",
+    port: 5173
   }
 })

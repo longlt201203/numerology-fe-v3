@@ -52,7 +52,7 @@ export default function NumerologyReadingpage() {
         <MainLayout>
             {contextHolder}
             <Layout className="bg-white flex flex-col items-center gap-y-16">
-                <Title className="mb-0">Xem Thần Số Học</Title>
+                <Title className="mb-0" level={2}>Xem Thần Số Học</Title>
                 <Form<ReadNumerologyRequestDto>
                     autoComplete="off"
                     className="w-full md:w-3/4 lg:w-2/4 mx-auto"
