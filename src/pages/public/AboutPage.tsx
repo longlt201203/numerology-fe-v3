@@ -16,10 +16,8 @@ export default function AboutPage() {
             <LazyParagraph content={siteContent.numerology.numberTypes.psychic.longDescription} />
             <Title level={4}>Chỉ số vận mệnh</Title>
             <LazyParagraph content={siteContent.numerology.numberTypes.destiny.longDescription} />
-            <Title level={4}>Chỉ số tên đầy đủ</Title>
-            <LazyParagraph content={siteContent.numerology.numberTypes.name.fullName.longDescription} />
-            <Title level={4}>Chỉ số tên riêng</Title>
-            <LazyParagraph content={siteContent.numerology.numberTypes.name.firstName.longDescription} />
+            <Title level={4}>Chỉ số tên</Title>
+            <LazyParagraph content={siteContent.numerology.numberTypes.name.general} />
             <Title level={3}>Xem thần số cho năm</Title>
             <LazyParagraph content={siteContent.numerology.numberTypes.year.longDescription} />
             <Title level={3}>Chi tiết từng con số</Title>
