@@ -11,6 +11,7 @@ import NumerologyCalculatingPage from "@pages/public/NumerologyYearCalculatingPa
 import { createBrowserRouter } from "react-router-dom";
 import UnauthorizedErrorPage from "@pages/public/UnauthorizedErrorPage";
 import NotFoundErrorPage from "@pages/public/NotFoundErrorPage";
+import UserDataPage from "@pages/admin/UserDataPage";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
                     {
                         path: "numerology",
                         element: <NumerologyManagementPage/>
+                    },
+                    {
+                        path: "user-data",
+                        element: <UserDataPage />
                     }
                 ]
             },

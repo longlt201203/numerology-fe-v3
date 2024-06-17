@@ -4,6 +4,7 @@ import ReadNumerologyRequestDto from "@dto/read-numerology.dto";
 import NumerologyCalculateResultDto from "@dto/numerology-calculate-result.dto";
 import CalculateNumerologyYearRequestDto from "@dto/calculate-numerology-year-request.dto";
 import CalculateNumerologyYearResultDto from "@dto/calculate-numerology-year-result.dto";
+import NumerologyReadingRecordResponseDto from "@dto/numerology-reading-record-response.dto";
 
 export default class NumerologyService extends Service {
     private static instance: NumerologyService;
@@ -45,5 +46,10 @@ export default class NumerologyService extends Service {
     calculateNumerologyYear(dto: CalculateNumerologyYearRequestDto) {
         const apiUri = this.getApiUri("/calculate-year");
         return this.post<CalculateNumerologyYearResultDto>(apiUri.toString(), { dob: dto.dob.toISOString(), year: dto.year.year() });
+    }
+
+    getNumerologyReadingRecords() {
+        const apiUri = this.getApiUri("/records");
+        return this.get<NumerologyReadingRecordResponseDto[]>(apiUri.toString());
     }
 }

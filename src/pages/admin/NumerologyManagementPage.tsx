@@ -60,17 +60,36 @@ export default function NumerologyManagementPage() {
     ];
 
     const fetchNumerologyEntries = async () => {
-        const data = await numerologyService.getMany();
-        setCollapseItems((prev) => {
-            for (const item of data) {
-                const index = prev.findIndex(e => item.number == e.key);
-                prev[index] = {
-                    ...prev[index],
-                    children: <NumerologyEntryItem data={item} onSubmit={updateNumerologyEntry} />
-                }
-            }
-            return [...prev];
+        messageApi.open({
+            key: "fetchNumerologyEntries",
+            content: "Đang tải dữ liệu thần số học...",
+            type: "loading"
         });
+        try {
+            const data = await numerologyService.getMany();
+            setCollapseItems((prev) => {
+                for (const item of data) {
+                    const index = prev.findIndex(e => item.number == e.key);
+                    prev[index] = {
+                        ...prev[index],
+                        children: <NumerologyEntryItem data={item} onSubmit={updateNumerologyEntry} />
+                    }
+                }
+                return [...prev];
+            });
+            messageApi.open({
+                key: "fetchNumerologyEntries",
+                content: "Tải dữ liệu thành công!",
+                type: "success"
+            });
+        } catch (err) {
+            console.log(err);
+            messageApi.open({
+                key: "fetchNumerologyEntries",
+                content: "Xảy ra lỗi khi tải dữ liệu thần số học!",
+                type: "error"
+            });
+        }
     }
 
     useEffect(() => {
