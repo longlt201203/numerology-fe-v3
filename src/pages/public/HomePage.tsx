@@ -1,6 +1,6 @@
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import navbarItems from "@etc/navbar-items";
-import { Button, ConfigProvider, Layout, Menu, MenuProps, Space, Typography } from "antd";
+import { Button, ConfigProvider, Layout, Menu, MenuProps, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
