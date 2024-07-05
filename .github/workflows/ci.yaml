@@ -2,15 +2,14 @@ name: Numerology FE CI
 on:
   push:
     branches:
-      - development
-
-env:
-  ENV_FILE_CONTENT: ${{ secrets.ENV_FILE_CONTENT }}
+      - main
 
 jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
     steps:
+      - id: commit
+        uses: prompt/actions-commit-hash@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -20,10 +19,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Retrive environment file
-        run: echo $ENV_FILE_CONTENT > .env
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: longthanhle1122/numerology-api-development:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/numerology-fe:latest , ${{ secrets.DOCKERHUB_USERNAME }}/numerology-fe:${{ steps.commit.outputs.short }}
